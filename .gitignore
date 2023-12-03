@@ -1,3 +1,6 @@
 migrations
 *.sqlite3
 media
+socialAuthConf.py
+cert.crt
+cert.key

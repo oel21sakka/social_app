@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-z*qql86^-!jjig+ok7s2+tdv=i$#+7utmjzahniy_n1n$h*2r9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['webdev.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -103,8 +105,26 @@ AUTH_PASSWORD_VALIDATORS = [
 # Authentication backends
 
 AUTHENTICATION_BACKENDS = [
-'django.contrib.auth.backends.ModelBackend',
-'account.authentication.EmailAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'account.authentication.EmailAuthBackend',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.google.GoogleOAuth2',
+]
+
+# Social Authentication pipline
+
+SOCIAL_AUTH_PIPELINE = [
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'account.authentication.create_profile',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
 ]
 
 # Internationalization
@@ -139,3 +159,19 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #media Settings
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+# Social Configurations
+
+from socialAuthConf import *
+
+# Facebook APP Data
+SOCIAL_AUTH_FACEBOOK_KEY = SOCIAL_AUTH_FACEBOOK_KEY # Facebook App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = SOCIAL_AUTH_FACEBOOK_SECRET # Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_SCOPE = SOCIAL_AUTH_FACEBOOK_SCOPE
+# Twitter APP Data
+SOCIAL_AUTH_TWITTER_KEY = SOCIAL_AUTH_TWITTER_KEY # Twitter API Key
+SOCIAL_AUTH_TWITTER_SECRET = SOCIAL_AUTH_TWITTER_SECRET # Twitter API Secret
+# Google APP Data
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = SOCIAL_AUTH_GOOGLE_OAUTH2_KEY #Google APP KEY
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET #Google APP SECRET KEY
