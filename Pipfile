@@ -10,6 +10,7 @@ social-auth-app-django = "*"
 django-extensions = "*"
 werkzeug = "*"
 pyopenssl = "*"
+requests = "*"
 
 [dev-packages]
 
