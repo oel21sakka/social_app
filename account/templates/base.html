@@ -13,7 +13,7 @@
         {% if request.user.is_authenticated %}
         <ul class="menu">
             <li {% if section == "dashboard" %}class="selected"{% endif %}>
-                <a href="{% url "dashboard" %}">My dashboard</>
+                <a href="{% url "dashboard" %}">My Dashboard</>
             </li>
             <li {% if section == "images" %}class="selected"{% endif %}>
                 <a href="#">Images</a>
@@ -26,7 +26,7 @@
         <span class="user">
         {% if request.user.is_authenticated %}
             Hello {{ request.user.first_name|default:request.user.username }},
-            <a href="{% url "logout" %}">Logout</a>
+            <a href="#" id = 'logout-link'>Logout</a>
         {% else %}
             <a href="{% url "login" %}">Log-in</a>
         {% endif %}
@@ -46,5 +46,25 @@
         {% block content%}
         {% endblock %}
     </div>
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script>
+        const csrftoken = Cookies.get('csrftoken');
+        $(document).ready(function() {
+        $('a#logout-link').click(function(event) {
+                event.preventDefault();  // Prevent the default action of the link
+                $.post('/account/logout/', {'csrfmiddlewaretoken': csrftoken}, function() {
+                    // Optional: handle success, e.g., redirect to another page
+                    window.location.replace('/account');  // Redirect to the home page
+                });
+            });
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+        // DOM loaded
+            {% block domready %}
+            {% endblock %}
+        })
+    </script>
 </body>
 </html>

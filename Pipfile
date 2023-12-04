@@ -11,6 +11,7 @@ django-extensions = "*"
 werkzeug = "*"
 pyopenssl = "*"
 requests = "*"
+easy-thumbnails = "*"
 
 [dev-packages]
 
