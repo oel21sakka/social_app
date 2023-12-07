@@ -1,7 +1,7 @@
 migrations
 *.sqlite3
 media
-socialAuthConf.py
+.env
 cert.crt
 cert.key
 __pycache__
