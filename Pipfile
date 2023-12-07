@@ -12,6 +12,7 @@ werkzeug = "*"
 pyopenssl = "*"
 requests = "*"
 easy-thumbnails = "*"
+redis = "*"
 
 [dev-packages]
 
